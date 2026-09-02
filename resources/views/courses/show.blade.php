@@ -5,7 +5,6 @@
         
         <div class="border-t pt-4">
             <h2 class="text-xl font-semibold mb-2">Deskripsi Mata Kuliah</h2>
-            {{-- CACAT #5: Menampilkan data tanpa escaping HTML (Potensi XSS) --}}
             <div class="prose">
                 {!! $course['description'] !!}
             </div>

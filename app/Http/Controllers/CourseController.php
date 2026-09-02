@@ -38,7 +38,6 @@ class CourseController extends Controller
 
     public function index()
     {
-        // Data dikirim mentah tanpa disaring; penyaringan disengaja ditaruh di view (Cacat #6)
         return view('courses.index', ['courses' => $this->courses]);
     }
 
