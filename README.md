@@ -47,10 +47,15 @@ Klik tombol hijau "Compare & pull request".
 ## ⚠️ PENTING (Pengaturan Target Branch):
 
 base repository: PutuNgurahSemara/LMS-Broken (Repo Asdos)
+
 base branch: w02 (harus sama dengan branch minggu tersebut, JANGAN ke main)
+
 head repository: NAMA-KELOMPOK/LMS-Broken (Repo Kelompok)
+
 compare branch: w02
+
 Isi Deskripsi PR: Mahasiswa wajib menuliskan deskripsi PR sesuai aturan modul:
-Masalah yang ditemukan: Apa yang salah dan di berkas mana.
-Risiko Keamanan/Dampak: Mengapa masalah itu berbahaya.
-Bukti Pembetulan: Bagaimana mereka membuktikannya sudah beres.
+
+- Masalah yang ditemukan: Apa yang salah dan di berkas mana.
+- Risiko Keamanan/Dampak: Mengapa masalah itu berbahaya.
+- Bukti Pembetulan: Bagaimana mereka membuktikannya sudah beres.
