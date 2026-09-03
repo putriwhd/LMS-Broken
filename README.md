@@ -39,3 +39,18 @@ Jumlah masalah selalu disebutkan supaya Anda tahu kapan berhenti mencari. Kalau 
 Fork ke akun kelompok, perbaiki di branch Anda sendiri, lalu kirim **Pull Request ke branch minggu tersebut**. PR harus menjelaskan tiap perbaikan: apa yang salah, kenapa berbahaya, dan bagaimana Anda membuktikannya sudah beres.
 
 PR tanpa penjelasan tidak dinilai, meskipun kodenya benar.
+
+## Cara lengkapnya 
+Buka repositori hasil fork di GitHub (https://github.com/NAMA-KELOMPOK/LMS-Broken).
+Klik tombol hijau "Compare & pull request".
+
+## ⚠️ PENTING (Pengaturan Target Branch):
+
+base repository: PutuNgurahSemara/LMS-Broken (Repo Asdos)
+base branch: w02 (harus sama dengan branch minggu tersebut, JANGAN ke main)
+head repository: NAMA-KELOMPOK/LMS-Broken (Repo Kelompok)
+compare branch: w02
+Isi Deskripsi PR: Mahasiswa wajib menuliskan deskripsi PR sesuai aturan modul:
+Masalah yang ditemukan: Apa yang salah dan di berkas mana.
+Risiko Keamanan/Dampak: Mengapa masalah itu berbahaya.
+Bukti Pembetulan: Bagaimana mereka membuktikannya sudah beres.
