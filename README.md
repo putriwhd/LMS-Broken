@@ -7,7 +7,7 @@
 Tahap **FIX** setiap minggu memakai proyek Laravel yang sengaja dirusak. Semuanya berada di **satu repositori**, dipisahkan per branch.
 
 ```bash
-git clone https://github.com/si2514024-pemrograman-web/kampuslms-broken.git
+git clone https://github.com/PutuNgurahSemara/LMS-Broken.git
 cd kampuslms-broken
 git switch w03          # branch latihan minggu 3
 ```
