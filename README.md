@@ -9,8 +9,14 @@ Tahap **FIX** setiap minggu memakai proyek Laravel yang sengaja dirusak. Semuany
 ```bash
 git clone https://github.com/PutuNgurahSemara/LMS-Broken.git
 cd kampuslms-broken
-git switch w03          # branch latihan minggu 3
+git fetch origin
 ```
+```bash 
+git switch w02
+git pull origin w02
+```
+ switch sesuaikan dengan minggu berapa yang mau dikerjakan
+
 
 ## Branch per minggu
 
