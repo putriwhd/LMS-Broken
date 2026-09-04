@@ -13,8 +13,12 @@ return new class extends Migration
             $table->foreignId('assignment_id')->constrained('assignments')->cascadeOnDelete();
             $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->string('file_path')->nullable();
+            $table->string('original_name')->nullable();
+            $table->unsignedBigInteger('file_size')->nullable();
+            $table->enum('status', ['submitted', 'graded'])->default('submitted');
             $table->text('notes')->nullable();
             $table->timestamp('submitted_at');
+            $table->unique(['assignment_id', 'user_id']);
             $table->timestamps();
         });
     }

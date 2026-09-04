@@ -11,7 +11,7 @@ class Submission extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['assignment_id', 'user_id', 'file_path', 'notes', 'submitted_at'];
+    protected $fillable = ['assignment_id', 'user_id', 'file_path', 'original_name', 'file_size', 'status', 'notes', 'submitted_at'];
 
     protected function casts(): array
     {
