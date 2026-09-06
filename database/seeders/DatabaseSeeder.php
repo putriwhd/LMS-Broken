@@ -16,82 +16,76 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. Mandatory accounts
-        $admin = User::create([
+        $admin = User::forceCreate([
             'name' => 'Administrator Kampus',
             'email' => 'admin@kampuslms.test',
             'password' => Hash::make('password'),
             'nim_nip' => 'ADM001',
+            'role' => 'admin',
         ]);
-        $admin->role = 'admin';
-        $admin->save();
 
-        $dosenMain = User::create([
+        $dosenMain = User::forceCreate([
             'name' => 'Dr. Aris Sugiharto',
             'email' => 'dosen@kampuslms.test',
             'password' => Hash::make('password'),
             'nim_nip' => '198001012005011001',
+            'role' => 'dosen',
         ]);
-        $dosenMain->role = 'dosen';
-        $dosenMain->save();
 
-        $mahasiswaMain = User::create([
-            'name' => 'Budi Pratama',
-            'email' => 'mahasiswa@kampuslms.test',
-            'password' => Hash::make('password'),
-            'nim_nip' => '24060121120001',
-        ]);
-        $mahasiswaMain->role = 'mahasiswa';
-        $mahasiswaMain->save();
-
-        $dosen2 = User::create([
+        $dosen2 = User::forceCreate([
             'name' => 'Budi Santoso, M.T.',
             'email' => 'budi.santoso@kampuslms.test',
             'password' => Hash::make('password'),
             'nim_nip' => '198502022010011002',
+            'role' => 'dosen',
         ]);
-        $dosen2->role = 'dosen';
-        $dosen2->save();
 
-        $dosen3 = User::create([
+        $dosen3 = User::forceCreate([
             'name' => 'Siti Aminah, Ph.D.',
             'email' => 'siti.aminah@kampuslms.test',
             'password' => Hash::make('password'),
             'nim_nip' => '199003032015012003',
+            'role' => 'dosen',
         ]);
-        $dosen3->role = 'dosen';
-        $dosen3->save();
+
+        $mahasiswaMain = User::forceCreate([
+            'name' => 'Budi Pratama',
+            'email' => 'mahasiswa@kampuslms.test',
+            'password' => Hash::make('password'),
+            'nim_nip' => '24060121120001',
+            'role' => 'mahasiswa',
+        ]);
 
         $dosens = collect([$dosenMain, $dosen2, $dosen3]);
-
         $mahasiswas = collect([$mahasiswaMain]);
+
         for ($i = 2; $i <= 30; $i++) {
-            $mhs = User::create([
+            $mhs = User::forceCreate([
                 'name' => "Mahasiswa {$i}",
                 'email' => "mahasiswa{$i}@kampuslms.test",
                 'password' => Hash::make('password'),
                 'nim_nip' => '240601211200'.str_pad($i, 2, '0', STR_PAD_LEFT),
+                'role' => 'mahasiswa',
             ]);
-            $mhs->role = 'mahasiswa';
-            $mhs->save();
             $mahasiswas->push($mhs);
         }
 
-        // 3. Courses
+        // 2. Courses
         $coursesData = [
             ['code' => 'SI2514024', 'name' => 'Pemrograman Web', 'sks' => 3, 'lecturer_id' => $dosenMain->id, 'description' => 'Mata kuliah dasar pengembangan aplikasi web modern menggunakan Laravel 12.'],
-            ['code' => 'SI2514025', 'name' => 'Basis Data Lanjut', 'sks' => 3, 'lecturer_id' => $dosens[1]->id, 'description' => 'Pembahasan indexing, transaksi, dan optimisasi query database relational.'],
-            ['code' => 'SI2514026', 'name' => 'Keamanan Informasi', 'sks' => 2, 'lecturer_id' => $dosens[2]->id, 'description' => 'Konsep dasar enkripsi, OWASP Top 10, dan pencegahan XSS/CSRF.'],
+            ['code' => 'SI2514025', 'name' => 'Basis Data Lanjut', 'sks' => 3, 'lecturer_id' => $dosen2->id, 'description' => 'Pembahasan indexing, transaksi, dan optimisasi query database relational.'],
+            ['code' => 'SI2514026', 'name' => 'Keamanan Informasi', 'sks' => 2, 'lecturer_id' => $dosen3->id, 'description' => 'Konsep dasar enkripsi, OWASP Top 10, dan pencegahan XSS/CSRF.'],
             ['code' => 'SI2514027', 'name' => 'Pemrograman Berorientasi Objek', 'sks' => 3, 'lecturer_id' => $dosenMain->id, 'description' => 'Prinsip OOP: Encapsulation, Inheritance, Polymorphism, Abstraction.'],
-            ['code' => 'SI2514028', 'name' => 'Rekayasa Perangkat Lunak', 'sks' => 3, 'lecturer_id' => $dosens[1]->id, 'description' => 'Metodologi Agile, Scrum, dan Siklus Hidup Perangkat Lunak.'],
+            ['code' => 'SI2514028', 'name' => 'Rekayasa Perangkat Lunak', 'sks' => 3, 'lecturer_id' => $dosen2->id, 'description' => 'Metodologi Agile, Scrum, dan Siklus Hidup Perangkat Lunak.'],
         ];
 
         foreach ($coursesData as $cData) {
             $course = Course::create(array_merge($cData, ['status' => 'active']));
 
-            // Enroll all students into courses
-            $course->students()->attach(
-                $mahasiswas->pluck('id')->mapWithKeys(fn ($id) => [$id => ['enrolled_at' => now()]])
-            );
+            // Enroll all students into course
+            foreach ($mahasiswas as $mhs) {
+                $course->students()->attach($mhs->id, ['enrolled_at' => now()]);
+            }
 
             // Add Materials
             Material::create([
@@ -112,7 +106,7 @@ class DatabaseSeeder extends Seeder
                 'max_score' => 100,
             ]);
 
-            // Add Submissions for all students (>100 total submissions)
+            // Add Submissions for all students
             foreach ($mahasiswas as $mhs) {
                 $sub = Submission::create([
                     'assignment_id' => $assignment->id,
